@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ppppop up</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="facicon_ppppopup.png" />
+
+<!-- Open Graph Metadata -->
+<meta property="og:title" content="ppppop up" />
+<meta property="og:description" content="사람과 공간 사이의 경험을 설계합니다." />
+<meta property="og:image" content="og_ppppopup.png" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:url" content="" />
+
+<!-- Twitter Card Metadata (optional, for better sharing) -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ppppop up" />
+<meta name="twitter:description" content="사람과 공간 사이의 경험을 설계합니다." />
+<meta name="twitter:image" content="og_ppppopup.png" />
+
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family:'Helvetica Neue',sans-serif;
+  background:#111;
+  color:#fff;
+}
+
+/* HEADER */
+header {
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  z-index:10;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(10px);
+}
+
+.logo img {height:28px;}
+
+/* HERO */
+.hero {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:120px 40px 40px;
+}
+
+.hero h1 {
+  font-size:clamp(80px,14vw,200px);
+  font-weight:800;
+  line-height:1.05;
+}
+
+.hero-sub {margin-top:40px;color:#aaa;}
+
+/* INTRO */
+.intro {padding:120px 40px 60px;}
+.intro h2 {font-size:48px;}
+.intro p {font-size:48px;font-weight:800;margin-top:10px;}
+.intro .orange {color:#FF8C00;}
+
+/* GRID */
+.grid {
+  padding:40px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+@media (max-width:900px) {
+  .grid {grid-template-columns:1fr;}
+}
+
+/* CARD */
+.card {
+  position:relative;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.card img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.4s;
+}
+
+.card:hover img {
+  transform:scale(1.05);
+  filter:brightness(0.5);
+}
+
+.card-info {
+  position:absolute;
+  bottom:0;
+  padding:20px;
+  opacity:0;
+  transition:.4s;
+}
+
+.card:hover .card-info {opacity:1;}
+
+.card-info p {font-size:14px;}
+
+/* VIEWER */
+.viewer {
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:#000;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:20;
+}
+
+.viewer.active {display:flex;}
+
+.viewer img {
+  max-width:90%;
+  max-height:80%;
+}
+
+.viewer-title {
+  margin-bottom:20px;
+  font-size:18px;
+}
+
+/* 버튼 */
+.viewer-btn {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:40px;
+  cursor:pointer;
+}
+
+.prev {left:20px;}
+.next {right:20px;}
+
+/* 🔥 CTA */
+.cta {
+  background:#000;
+  padding:140px 40px;
+}
+
+.cta-inner {
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.cta h2 {
+  font-size:clamp(60px,8vw,120px);
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:40px;
+}
+
+.cta p {
+  font-size:18px;
+  color:#aaa;
+  margin-bottom:40px;
+}
+
+.cta a {
+  font-size:18px;
+  color:#fff;
+  text-decoration:none;
+  border-bottom:1px solid #fff;
+  padding-bottom:4px;
+}
+
+/* 🔥 NEW FOOTER */
+.footer {
+  background:#1a1a1a;
+  border-top:1px solid #222;
+}
+
+.footer-inner {
+  max-width:1200px;
+  margin:0 auto;
+  padding:80px 40px;
+  font-size:12px;
+  color:#999;
+  line-height:1.8;
+}
+
+.footer-section {margin-bottom:40px;}
+
+.footer-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid #222;
+  padding-top:20px;
+  margin-top:40px;
+}
+
+.instagram {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  text-decoration:none;
+  color:#999;
+}
+
+.instagram svg {
+  width:14px;
+  height:14px;
+  fill:#999;
+}
+
+@media (max-width:768px){
+  .footer-inner {padding:60px 20px;}
+  .footer-bottom {
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="logo_ppppopup.png">
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>
+      <span style="color:#FF8C00;">P</span>EOPLE<br>
+      <span style="color:#FF8C00;">P</span>LACE<br>
+      <span style="color:#FF8C00;">P</span>LAN<br>
+      <span style="color:#FF8C00;">P</span>LAY
+    </h1>
+    <p class="hero-sub">
+      우리는 사람과 공간 사이의 경험을 설계하는<br>
+      팝업 전문 파트너 ppppop up 입니다.
+    </p>
+  </div>
+</section>
+
+<section class="intro">
+  <h2>WHAT WE DO</h2>
+  <p><span class="orange">23</span> PROJECTS SINCE 2020</p>
+</section>
+
+<section class="grid" id="grid"></section>
+
+<!-- 🔥 CTA 추가 -->
+<section class="cta">
+  <div class="cta-inner">
+    <h2>LET’S WORK<br>TOGETHER</h2>
+    <p>우리는 브랜드의 경험을 만들어갑니다.</p>
+    <a href="mailto:ppppopup.me@gmail.com">Go To Contact →</a>
+  </div>
+</section>
+
+<!-- VIEWER -->
+<div class="viewer" id="viewer">
+  <div class="viewer-title" id="viewerTitle"></div>
+  <div class="viewer-btn prev" onclick="prevSlide(event)">‹</div>
+  <img id="viewerImg">
+  <div class="viewer-btn next" onclick="nextSlide(event)">›</div>
+</div>
+
+<!-- 🔥 NEW FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-section">
+      ppppop up. co. ltd.<br>
+      Owner Dana Park<br>
+      Biz. No. 164-88-00205
+    </div>
+
+    <div class="footer-section">
+      Planned for people. Built in place. Made to play.
+    </div>
+
+    <div class="footer-section">
+      e-mail. ppppopup.me@gmail.com<br>
+      <a class="instagram" href="https://www.instagram.com/ppppopup/" target="_blank">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;fill:currentColor;">
+          <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.8-2.3a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/>
+        </svg>
+        Instagram
+      </a>
+      Address : 64, Dongsung-gil, Jongno-gu, Seoul, Republic of Korea
+    </div>
+
+    <div class="footer-bottom">
+      <div>Copyright ⓒ ppppop up. All rights reserved.</div>
+
+    </div>
+
+  </div>
+</footer>
+
+<script>
+
+const projects = [
+{ id:'01', count:6, title:'Lotte Aquarium 2025' },
+{ id:'02', count:3, title:'Bonbon 2025' },
+{ id:'03', count:4, title:'Lotte World Halloween 2025' },
+{ id:'04', count:10, title:'Lotte World Dark Moon World 2024' },
+{ id:'05', count:2, title:'Lotte World ICE Garden 2023' },
+{ id:'06', count:3, title:'Lotte World 소원책 2023' },
+{ id:'07', count:12, title:'Lego Land 2023' },
+{ id:'08', count:3, title:'Bread Barber Shop 2022' },
+{ id:'09', count:7, title:'Lotte SCARPA 2022' },
+{ id:'10', count:3, title:'Lotte Halloween 2022' },
+{ id:'11', count:4, title:'WaterPark 2022' },
+{ id:'12', count:1, title:'그럴싸진관 2022' },
+{ id:'13', count:1, title:'그럴싸진관 2022' },
+{ id:'14', count:1, title:'그럴싸진관 2022' },
+{ id:'15', count:1, title:'그럴싸진관 2022' },
+{ id:'16', count:1, title:'그럴싸진관 2022' },
+{ id:'17', count:1, title:'그럴싸진관 2022' },
+{ id:'18', count:1, title:'그럴싸진관 2022' },
+{ id:'19', count:6, title:'Snoopy 2020' }
+];
+
+const grid = document.getElementById('grid');
+
+projects.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.onclick = () => openProject(p);
+
+  div.innerHTML = `
+    <img src="project/${p.id}.01.png">
+    <div class="card-info">
+      <p>${p.title}</p>
+    </div>
+  `;
+
+  grid.appendChild(div);
+});
+
+let currentIndex = 1;
+let totalImages = 0;
+let currentProject;
+
+function openProject(p) {
+  currentProject = p;
+  currentIndex = 1;
+  totalImages = p.count;
+
+  document.getElementById("viewerTitle").innerText = p.title;
+  updateImage();
+  document.getElementById("viewer").classList.add("active");
+}
+
+function updateImage() {
+  document.getElementById("viewerImg").src =
+    `project/${currentProject.id}.${String(currentIndex).padStart(2,'0')}.png`;
+}
+
+function nextSlide(e){
+  e.stopPropagation();
+  currentIndex++;
+  if(currentIndex > totalImages) currentIndex = 1;
+  updateImage();
+}
+
+function prevSlide(e){
+  e.stopPropagation();
+  currentIndex--;
+  if(currentIndex < 1) currentIndex = totalImages;
+  updateImage();
+}
+
+document.getElementById("viewer").onclick = function(){
+  this.classList.remove("active");
+}
+
+</script>
+
+</body>
+</html>
